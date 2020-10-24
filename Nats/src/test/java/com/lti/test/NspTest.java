@@ -79,7 +79,7 @@ public class NspTest {
 		student.setStudentPassword("james123");
 		student.setStudentStatus("true");
 		student.setInstitute(nspDao.findAnInstitute(1001));
-		
+		// arka
 		nspDao.registerAStudent(student);
 
 	}
