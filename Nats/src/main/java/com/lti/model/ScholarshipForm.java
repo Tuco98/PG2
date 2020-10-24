@@ -43,10 +43,10 @@ public class ScholarshipForm {
 	double familyAnnualIncome;
 	
 	@Column(name = "nodal_verification_status")
-	String nodalVerificationStatus; //Approved/Rejected
+	String nodalVerificationStatus; //Not Approved/Approved/Rejected
 	
 	@Column(name = "ministry_verification_status")
-	String ministryVerificationStatus;
+	String ministryVerificationStatus;//Not Approved/Approved/Rejected
 	
 	
 	@OneToOne

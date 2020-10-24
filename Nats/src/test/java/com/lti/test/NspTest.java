@@ -21,7 +21,7 @@ public class NspTest {
 	@Test
 	public void addAScheme() {
 		Scheme scheme = new Scheme();
-		scheme.setSchemeName("Pragati Scholarship");
+		scheme.setSchemeName("Scholarship 2");
 		scheme.setSchemeMinistry("MHRD");
 		scheme.setSchemeCourseLevel("Graduation");
 		scheme.setScheme10EC(60);
@@ -93,6 +93,8 @@ public class NspTest {
 		form.setMotherName("Sarah");
 		form.setFamilyAnnualIncome(500000);
 		form.setStudent(nspDao.findAStudent(123456123));
+		form.setNodalVerificationStatus("Not Approved");
+		form.setMinistryVerificationStatus("Not Approved");
 		
 		nspDao.applyForAScheme(form);
 	}
