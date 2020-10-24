@@ -1,10 +1,12 @@
 package com.lti.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-
+import javax.persistence.Query;
 
 import com.lti.model.Institute;
 import com.lti.model.Scheme;
@@ -15,48 +17,97 @@ public class NspDao {
 	EntityManagerFactory emf;
 	EntityManager em;
 	EntityTransaction tx;
-	
-	public NspDao(){
-		emf=Persistence.createEntityManagerFactory("pu");
-		em=emf.createEntityManager();
-		tx=em.getTransaction();
+
+	public NspDao() {
+		emf = Persistence.createEntityManagerFactory("pu");
+		em = emf.createEntityManager();
+		tx = em.getTransaction();
 	}
-	public void registerAnInstitute(Institute institute){
+
+	public void registerAnInstitute(Institute institute) {
+
+		institute.setInstituteStatus(false);
+		institute.setInstituteNodalOfficerApproval("Not Approved");
+		institute.setInstituteMinistryApproval("Not Approved");
+
 		tx.begin();
 		em.merge(institute);
 		tx.commit();
 		System.out.println("Institute added");
 	}
-	public void addAScheme(Scheme scheme){
+
+	public void addAScheme(Scheme scheme) {
 		tx.begin();
 		em.merge(scheme);
 		tx.commit();
 		System.out.println("Scheme Added");
 	}
-	public void registerAStudent(Student student){
+
+	public void registerAStudent(Student student) {
+
+		student.setStudentStatus("Not Approved");
+
 		tx.begin();
 		em.merge(student);
 		tx.commit();
 		System.out.println("Student Added");
 	}
-	
+
 	public Institute findAnInstitute(long instituteId) {
 		Institute institute = em.find(Institute.class, instituteId);
 		return institute;
 	}
-	
+
 	public Student findAStudent(long studentId) {
 		Student student = em.find(Student.class, studentId);
 		return student;
 	}
-	
+
 	public void applyForAScheme(ScholarshipForm form) {
 		tx.begin();
 		em.merge(form);
 		tx.commit();
 		System.out.println("Form added");
 	}
-	
-	
-	
+
+	public Institute findAnInstituteByInstituteCode(String instituteCode) {
+		Institute institute = new Institute();
+
+		String jpql = "select i from Institute i where i.instituteCode=:ic";
+		Query query = em.createQuery(jpql, Institute.class);
+		query.setParameter("ic", instituteCode);
+
+		institute = (Institute) query.getSingleResult();
+
+		return institute;
+	}
+
+	public List<Institute> viewAllInstitutes() {
+
+		String jpql = "select i from Institute i";
+		Query query = em.createQuery(jpql, Institute.class);
+
+		List<Institute> institutes = query.getResultList();
+
+		return institutes;
+	}
+
+	public List<Student> viewAllStudents() {
+
+		String jpql = "select s from Student s";
+		Query query = em.createQuery(jpql, Student.class);
+
+		List<Student> students = query.getResultList();
+
+		return students;
+	}
+
+	public void instituteApprovesAStudent(Student student) {
+		student.setStudentStatus("Approved");
+		tx.begin();
+		em.merge(student);
+		tx.commit();
+		System.out.println("Student Approved");
+	}
+
 }

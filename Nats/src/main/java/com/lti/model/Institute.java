@@ -72,6 +72,12 @@ public class Institute {
 	@Column(name = "institute_status")
 	boolean instituteStatus;
 	
+	@Column(name = "nodal_officer_approval")
+	String instituteNodalOfficerApproval;
+	
+	@Column(name = "ministry_approval")
+	String instituteMinistryApproval;
+	
 	@OneToMany(mappedBy="institute")
 	List<Student> students;
 	
@@ -192,6 +198,20 @@ public class Institute {
 	public void setStudents(List<Student> students) {
 		this.students = students;
 	}
+	public String getInstituteNodalOfficerApproval() {
+		return instituteNodalOfficerApproval;
+	}
+	public void setInstituteNodalOfficerApproval(String instituteNodalOfficerApproval) {
+		this.instituteNodalOfficerApproval = instituteNodalOfficerApproval;
+	}
+	public String getInstituteMinistryApproval() {
+		return instituteMinistryApproval;
+	}
+	public void setInstituteMinistryApproval(String instituteMinistryApproval) {
+		this.instituteMinistryApproval = instituteMinistryApproval;
+	}
+	
+	
 }
 /*Institute_ID "PK", long
 Institue_DISEcode,	String

@@ -3,6 +3,7 @@ package com.lti.test;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder.In;
 
@@ -56,7 +57,7 @@ public class NspTest {
 		institute.setInstitutePrincipalNmae("Dr. John Mathews");
 		institute.setInstitutePhoneNumber("1234567895");
 		institute.setInstituteEmail("abctech@gmail.com");
-		institute.setInstituteStatus(false);
+		//institute.setInstituteStatus(false);
 
 		nspDao.registerAnInstitute(institute);
 
@@ -77,11 +78,32 @@ public class NspTest {
 		student.setStudenBankAccountNumber("11111");
 		student.setStudentIfcsCode("16005");
 		student.setStudentPassword("james123");
-		student.setStudentStatus("true");
-		student.setInstitute(nspDao.findAnInstitute(1001));
+		//student.setStudentStatus("true");
+		//student.setInstitute(nspDao.findAnInstitute(1001));
 		
-		nspDao.registerAStudent(student);
+		Institute institute = nspDao.findAnInstituteByInstituteCode("100"); 
+		
+		if(institute != null) {
+			student.setInstitute(institute);
+			nspDao.registerAStudent(student);
+		}
+		else {
+			System.out.println("Student registration failed");
+		}
+		
+		
 
+	}
+	
+	@Test
+	public void findAnInstituteByInstituteCode() {
+		Institute institute = nspDao.findAnInstituteByInstituteCode("100");
+		if(institute != null) {
+			System.out.println(institute.getInstituteId()+" "+institute.getInstituteName());
+		}
+		else {
+			System.out.println("Student registration failed");
+		}
 	}
 	
 	@Test
@@ -97,6 +119,30 @@ public class NspTest {
 		form.setMinistryVerificationStatus("Not Approved");
 		
 		nspDao.applyForAScheme(form);
+	}
+	
+	@Test
+	public void viewAllInstitutes() {
+		List<Institute> institutes = nspDao.viewAllInstitutes();
+		
+		for(Institute i: institutes) {
+			System.out.println(i.getInstituteId()+" "+i.getInstituteName()+" "+i.getInstituteNodalOfficerApproval()+" "+i.getInstituteMinistryApproval()+" "+i.getInstituteState());
+		}
+	}
+	
+	@Test
+	public void viewAllStudents() {
+		List<Student> students = nspDao.viewAllStudents();
+		
+		for(Student s: students) {
+			System.out.println(s.getStudentAadharNumber()+" "+s.getStudentName()+" "+s.getStudentStatus()+" "+s.getInstitute().getInstituteId());
+		}
+	}
+	
+	@Test
+	public void instituteApprovesAStudent() {
+		Student student = nspDao.findAStudent(123456123);
+		nspDao.instituteApprovesAStudent(student);
 	}
 	
 }

@@ -55,7 +55,7 @@ public class Student {
 	String studentPassword;
 	
 	@Column(name = "student_status")
-	String studentStatus;
+	String studentStatus; //Not Approved/Approved/Rejected
 	
 	@ManyToOne
 	@JoinColumn(name="institute_code")
