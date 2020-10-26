@@ -13,40 +13,49 @@ public class Ministry {
 	@Id
 	@GeneratedValue
 	@Column(name="MinistryUID")
-	int MinistryUID;
+	int ministryUid;
 	
 	@Column(name="MinistryPassword")
-	String MinistryPassword;
+	String ministryPassword;
 	
 	@Column(name="MinistryState")
-	String MinistryState;
+	String ministryState;
 	
 	@Column(name="MinistryStatus")
-	Boolean MinistryStatus = true;
+	Boolean ministryStatus = true;
+
+	public int getMinistryUid() {
+		return ministryUid;
+	}
+
+	public void setMinistryUid(int ministryUid) {
+		this.ministryUid = ministryUid;
+	}
+
+	public String getMinistryPassword() {
+		return ministryPassword;
+	}
+
+	public void setMinistryPassword(String ministryPassword) {
+		this.ministryPassword = ministryPassword;
+	}
+
+	public String getMinistryState() {
+		return ministryState;
+	}
+
+	public void setMinistryState(String ministryState) {
+		this.ministryState = ministryState;
+	}
+
+	public Boolean getMinistryStatus() {
+		return ministryStatus;
+	}
+
+	public void setMinistryStatus(Boolean ministryStatus) {
+		this.ministryStatus = ministryStatus;
+	}
 	
 	
-	public int getMinistry_UID() {
-		return MinistryUID;
-	}
-	public void setMinistry_UID(int ministry_UID) {
-		MinistryUID = ministry_UID;
-	}
-	public String getMinistry_Password() {
-		return MinistryPassword;
-	}
-	public void setMinistry_Password(String ministry_Password) {
-		MinistryPassword = ministry_Password;
-	}
-	public String getMinistry_state() {
-		return MinistryState;
-	}
-	public void setMinistry_state(String ministry_state) {
-		MinistryState = ministry_state;
-	}
-	public Boolean getMinistry_Status() {
-		return MinistryStatus;
-	}
-	public void setMinistry_Status(Boolean ministry_Status) {
-		MinistryStatus = ministry_Status;
-	}
+	
 }

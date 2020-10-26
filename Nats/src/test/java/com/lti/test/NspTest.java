@@ -100,11 +100,11 @@ public class NspTest {
 	@Test
 	public void addANodal() {
 		Nodal nodal = new Nodal();
-		nodal.setNodal_State("Maharashtra");
-		nodal.setNodal_Name("Nodal 1");
-		nodal.setNodal_Email("nodal@lti.com");
-		nodal.setNodal_Phone(326524);
-		nodal.setNodal_Status(true);
+		nodal.setNodalState("Maharashtra");
+		nodal.setNodalName("Nodal 1");
+		nodal.setNodalEmail("nodal@lti.com");
+		nodal.setNodalPhone(326524);
+		nodal.setNodalStatus(true);
 		
 		nspDao.addANodal(nodal);
 	}
@@ -168,8 +168,8 @@ public class NspTest {
 	
 	@Test
 	public void instituteApprovesAStudent() {
-		Student student = nspDao.findAStudent(123456123);
-		nspDao.instituteApprovesAStudent(student);
+		//Student student = nspDao.findAStudent(123456123);
+		nspDao.instituteApprovesAStudent(123456123);
 	}
 	
 	@Test
@@ -184,13 +184,13 @@ public class NspTest {
 	
 	@Test
 	public void instituteRejectsAStudent(){
-		Student student = nspDao.findAStudent(123456123);
-		nspDao.instituteRejectsAStudent(student);
+		//Student student = nspDao.findAStudent(123456123);
+		nspDao.instituteRejectsAStudent(123456123);
 	}
 	
 	@Test
 	public void instituteLogin(){
-		boolean check=nspDao.instituteLogin(5002,"abc@123");
+		boolean check=nspDao.instituteLogin(1021,"abc@123");
 		if(check==true){
 			System.out.println("Login Successful");
 		}
@@ -198,4 +198,5 @@ public class NspTest {
 			System.out.println("Login failed");
 		}
 	}
+	
 }

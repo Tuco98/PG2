@@ -81,6 +81,11 @@ public class NspDao {
 		Scheme scheme = em.find(Scheme.class, schemeUID);
 		return scheme;
 	}
+	
+	public ScholarshipForm findAScholarshipForm(long form_id) {
+		ScholarshipForm form = em.find(ScholarshipForm.class, form_id);
+		return form;
+	}
 
 	public void applyForAScheme(ScholarshipForm form) {
 		
@@ -127,7 +132,8 @@ public class NspDao {
 		return students;
 	}
 
-	public void instituteApprovesAStudent(Student student) {
+	public void instituteApprovesAStudent(long studentId) {
+		Student student  = findAStudent(studentId);
 		student.setStudentStatus("Approved");
 		tx.begin();
 		em.merge(student);
@@ -135,8 +141,7 @@ public class NspDao {
 		System.out.println("Student Approved");
 	}
 	
-	public void instituteApprovesAForm(Student student) {
-		ScholarshipForm form = student.getForm();
+	public void instituteApprovesAForm(ScholarshipForm form) {
 		form.setInstituteVerificationStatus("Approved");
 		tx.begin();
 		em.merge(form);
@@ -144,7 +149,7 @@ public class NspDao {
 		System.out.println("Student Approved");
 	}
 	
-	public void viewUnapprovedFormsOfParticularInstitute(long instituteId) {
+	public List<ScholarshipForm> viewUnapprovedFormsOfParticularInstitute(long instituteId) {
 		String jpql = "select f from ScholarshipForm f where institute_id=:id and f.instituteVerificationStatus=:na";
 		Query query = em.createQuery(jpql, ScholarshipForm.class);
 		query.setParameter("id", instituteId);
@@ -152,13 +157,15 @@ public class NspDao {
 		
 		List<ScholarshipForm> forms = query.getResultList();
 		
-		for(ScholarshipForm f: forms) {
-			System.out.println(f.getFormId()+" "+f.getStudent().getStudentAadharNumber()+" "+f.getInstitute().getInstituteCode()+" "+f.getInstituteVerificationStatus());
-		}
+//		for(ScholarshipForm f: forms) {
+//			System.out.println(f.getFormId()+" "+f.getStudent().getStudentAadharNumber()+" "+f.getInstitute().getInstituteCode()+" "+f.getInstituteVerificationStatus());
+//		}
+		
+		return forms;
 		
 	}
 	
-	public void viewUnverifiedStudentsOfParticularInstitute(long instituteId) {
+	public List<Student> viewUnverifiedStudentsOfParticularInstitute(long instituteId) {
 		String jpql = "select s from Student s where student_status=:na and institute_code=:id";
 		Query query = em.createQuery(jpql, Student.class);
 		query.setParameter("id", instituteId);
@@ -166,12 +173,15 @@ public class NspDao {
 		
 		List<Student> students = query.getResultList();
 		
-		for(Student stu: students) {
-			System.out.println(stu.getStudentAadharNumber()+" "+stu.getStudentName()+" "+stu.getStudentStatus());
-		}		
+//		for(Student stu: students) {
+//			System.out.println(stu.getStudentAadharNumber()+" "+stu.getStudentName()+" "+stu.getStudentStatus());
+//		}
+		
+		return students;
 	}
 	
-	public void instituteRejectsAStudent(Student student){
+	public void instituteRejectsAStudent(long studentId){
+		Student student = findAStudent(studentId);
 		student.setStudentStatus("Rejected");
 		tx.begin();
 		em.merge(student);
@@ -188,6 +198,69 @@ public class NspDao {
 		if(ins!=null)
 			return true;
 		return false;
+	}
+	
+	public List<Institute> viewAllUnapprovedInstitutes() {
+		String jpql="select i from Institute i where i.instituteNodalOfficerApproval=:fn";
+		Query query=em.createQuery(jpql, Institute.class);
+		query.setParameter("fn", "Not Approved");
+		
+		List<Institute> institutes = query.getResultList();
+		
+		return institutes;
+		
+	}
+	
+	public List<ScholarshipForm> viewAllInstituteApprovedForms(){
+		String jpql="select f from ScholarshipForm f where f.instituteVerificationStatus=:ivs and f.nodal_verification_status:nvs";
+		Query query = em.createQuery(jpql, ScholarshipForm.class);
+		query.setParameter("ivs", "Approved");
+		query.setParameter("nvs", "Not Approved");
+		
+		List<ScholarshipForm> forms = query.getResultList();
+		
+		return forms;
+		
+	}
+	
+	public void nodalApproveAForm(long form_id) {
+		ScholarshipForm form = findAScholarshipForm(form_id);
+		form.setNodalVerificationStatus("Approved");
+		tx.begin();
+		em.merge(form);
+		tx.commit();
+		System.out.println("Scholarship form is Approved by Nodal Officer");
+	}
+	
+	public void nodalRejectAForm(long form_id) {
+		ScholarshipForm form = findAScholarshipForm(form_id);
+		form.setNodalVerificationStatus("Rejected");
+		tx.begin();
+		em.merge(form);
+		tx.commit();
+		System.out.println("Scholarship form is Rejected by Nodal Officer");
+	}
+	
+	public List<ScholarshipForm> viewAllNodalApprovedForms() {
+		String jpql="select f from ScholarshipForm f where f.nodal_verification_status:nvs and f.ministryVerificationStatus=:mvs";
+		Query query = em.createQuery(jpql, ScholarshipForm.class);
+		query.setParameter("nvs", "Approved");
+		query.setParameter("mvs", "Not Approved");
+		
+		List<ScholarshipForm> forms = query.getResultList();
+		
+		return forms;
+	}
+	
+	public List<Institute> viewAllNodalApprovedInstitutes(){
+		String jpql="select i from Institute i where i.instituteNodalOfficerApproval=:fn and i.instituteMinistryApproval=:ims";
+		Query query=em.createQuery(jpql, Institute.class);
+		query.setParameter("fn", "Approved");
+		query.setParameter("ims", "Not Approved");
+		
+		List<Institute> institutes = query.getResultList();
+		
+		return institutes;
 	}
 
 }

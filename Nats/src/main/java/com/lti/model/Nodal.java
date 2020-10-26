@@ -14,73 +14,82 @@ public class Nodal {
 	@Id
 	@GeneratedValue
 	@Column(name="Nodal_UID")
-	int Nodal_UID;
+	int nodalUid;
 	
 	@Column(name="Nodal_State")
-	String Nodal_State;
+	String nodalState;
 	
 	@Column(name="Nodal_Name")
-	String Nodal_Name;
+	String nodalName;
 	
 	@Column(name="Nodal_Email")
-	String Nodal_Email;
+	String nodalEmail;
 	
 	@Column(name="Nodal_Phone")
-	int Nodal_Phone;
+	int nodalPhone;
 	
 	@Column(name="Nodal_Status")
-	Boolean Nodal_Status;
+	Boolean nodalStatus;
 	
 	@OneToOne( mappedBy = "nodal")
 	ScholarshipForm form;
 
-	public int getNodal_UID() {
-		return Nodal_UID;
+	public int getNodalUid() {
+		return nodalUid;
 	}
 
-	public void setNodal_UID(int nodal_UID) {
-		Nodal_UID = nodal_UID;
+	public void setNodalUid(int nodalUid) {
+		this.nodalUid = nodalUid;
 	}
 
-	public String getNodal_State() {
-		return Nodal_State;
+	public String getNodalState() {
+		return nodalState;
 	}
 
-	public void setNodal_State(String nodal_State) {
-		Nodal_State = nodal_State;
+	public void setNodalState(String nodalState) {
+		this.nodalState = nodalState;
 	}
 
-
-	public String getNodal_Name() {
-		return Nodal_Name;
+	public String getNodalName() {
+		return nodalName;
 	}
 
-	public void setNodal_Name(String nodal_Name) {
-		Nodal_Name = nodal_Name;
+	public void setNodalName(String nodalName) {
+		this.nodalName = nodalName;
 	}
 
-	public String getNodal_Email() {
-		return Nodal_Email;
+	public String getNodalEmail() {
+		return nodalEmail;
 	}
 
-	public void setNodal_Email(String nodal_Email) {
-		Nodal_Email = nodal_Email;
+	public void setNodalEmail(String nodalEmail) {
+		this.nodalEmail = nodalEmail;
 	}
 
-	public int getNodal_Phone() {
-		return Nodal_Phone;
+	public int getNodalPhone() {
+		return nodalPhone;
 	}
 
-	public void setNodal_Phone(int nodal_Phone) {
-		Nodal_Phone = nodal_Phone;
+	public void setNodalPhone(int nodalPhone) {
+		this.nodalPhone = nodalPhone;
 	}
 
-	public Boolean getNodal_Status() {
-		return Nodal_Status;
+	public Boolean getNodalStatus() {
+		return nodalStatus;
 	}
 
-	public void setNodal_Status(Boolean nodal_Status) {
-		Nodal_Status = nodal_Status;
+	public void setNodalStatus(Boolean nodalStatus) {
+		this.nodalStatus = nodalStatus;
 	}
+
+	public ScholarshipForm getForm() {
+		return form;
+	}
+
+	public void setForm(ScholarshipForm form) {
+		this.form = form;
+	}
+
+	
 	
 }
