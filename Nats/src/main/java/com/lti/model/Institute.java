@@ -81,6 +81,9 @@ public class Institute {
 	@OneToMany(mappedBy="institute")
 	List<Student> students;
 	
+	@OneToMany(mappedBy="instituteObj")
+	List<ScholarshipForm> forms;
+	
 	public long getInstituteId() {
 		return instituteId;
 	}

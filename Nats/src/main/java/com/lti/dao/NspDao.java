@@ -134,5 +134,41 @@ public class NspDao {
 		tx.commit();
 		System.out.println("Student Approved");
 	}
+	
+	public void instituteApprovesAForm(Student student) {
+		ScholarshipForm form = student.getForm();
+		form.setInstituteVerificationStatus("Approved");
+		tx.begin();
+		em.merge(form);
+		tx.commit();
+		System.out.println("Student Approved");
+	}
+	
+	public void viewUnapprovedFormsOfParticularInstitute(long instituteId) {
+		String jpql = "select f from ScholarshipForm f where institute_id=:id and f.instituteVerificationStatus=:na";
+		Query query = em.createQuery(jpql, ScholarshipForm.class);
+		query.setParameter("id", instituteId);
+		query.setParameter("na", "Not Approved");
+		
+		List<ScholarshipForm> forms = query.getResultList();
+		
+		for(ScholarshipForm f: forms) {
+			System.out.println(f.getFormId()+" "+f.getStudent().getStudentAadharNumber()+" "+f.getInstitute().getInstituteCode()+" "+f.getInstituteVerificationStatus());
+		}
+		
+	}
+	
+	public void viewUnverifiedStudentsOfParticularInstitute(long instituteId) {
+		String jpql = "select s from Student s where student_status=:na and institute_code=:id";
+		Query query = em.createQuery(jpql, Student.class);
+		query.setParameter("id", instituteId);
+		query.setParameter("na", "Not Approved");
+		
+		List<Student> students = query.getResultList();
+		
+		for(Student stu: students) {
+			System.out.println(stu.getStudentAadharNumber()+" "+stu.getStudentName()+" "+stu.getStudentStatus());
+		}		
+	}
 
 }

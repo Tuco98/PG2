@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -61,6 +62,10 @@ public class ScholarshipForm {
 	@OneToOne
 	@JoinColumn( name = "student_aadhar_number")
 	Student student;
+	
+	@ManyToOne
+	@JoinColumn( name = "institute_id")
+	Institute instituteObj;
 	
 	@OneToOne
 	@JoinColumn( name = "nodal_uid")
@@ -220,6 +225,14 @@ public class ScholarshipForm {
 
 	public void setScheme(Scheme scheme) {
 		this.scheme = scheme;
+	}
+
+	public Institute getInstitute() {
+		return instituteObj;
+	}
+
+	public void setInstitute(Institute institute) {
+		this.instituteObj = institute;
 	}
 	
 	

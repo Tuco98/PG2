@@ -137,7 +137,9 @@ public class NspTest {
 		
 		form.setNodal(nodal);
 		
-		Scheme scheme = nspDao.findAScheme(1002);
+		form.setInstitute(nspDao.findAnInstitute(1021));
+		
+		Scheme scheme = nspDao.findAScheme(1021);
 		
 		form.setScheme(scheme);
 		//form.setNodalVerificationStatus("Not Approved");
@@ -168,6 +170,16 @@ public class NspTest {
 	public void instituteApprovesAStudent() {
 		Student student = nspDao.findAStudent(123456123);
 		nspDao.instituteApprovesAStudent(student);
+	}
+	
+	@Test
+	public void viewFormsSubmittedByStudentsOfParticularInstitute() {
+		nspDao.viewUnapprovedFormsOfParticularInstitute(1021);
+	}
+	
+	@Test
+	public void viewUnverifiedStudentsOfParticularInstitute() {
+		nspDao.viewUnverifiedStudentsOfParticularInstitute(1021);
 	}
 	
 }
