@@ -141,7 +141,8 @@ public class NspDao {
 		System.out.println("Student Approved");
 	}
 	
-	public void instituteApprovesAForm(ScholarshipForm form) {
+	public void instituteApprovesAForm(long id) {
+		ScholarshipForm form=findAScholarshipForm(id);
 		form.setInstituteVerificationStatus("Approved");
 		tx.begin();
 		em.merge(form);
@@ -261,6 +262,73 @@ public class NspDao {
 		List<Institute> institutes = query.getResultList();
 		
 		return institutes;
+	}
+	public boolean studentLogin(long aadhar, String password){
+		String jpql="select s from Student s where s.studentAadharNumber=:aad and s.studentPassword=:psw";
+		Query query=em.createQuery(jpql, Student.class);
+		query.setParameter("aad", aadhar);
+		query.setParameter("psw", password);
+		Student student=(Student) query.getSingleResult();
+		if(student!=null)
+			return true;
+		return false;
+	}
+	
+	public void instituteRejectsAForm(long id) {
+		ScholarshipForm form=findAScholarshipForm(id);
+		form.setInstituteVerificationStatus("Rejected");
+		tx.begin();
+		em.merge(form);
+		tx.commit();
+		System.out.println("Student Application Rejected");
+	}
+	public void nodalApprovesAnInstitute(String code){
+		Institute institute=findAnInstituteByInstituteCode(code);
+		institute.setInstituteNodalOfficerApproval("Approved");
+		tx.begin();
+		em.merge(institute);
+		tx.commit();
+		System.out.println("Nodal approved the institute");
+	}
+	public void nodalRejectsAnInstitute(String code){
+		Institute institute=findAnInstituteByInstituteCode(code);
+		institute.setInstituteNodalOfficerApproval("Rejected");
+		tx.begin();
+		em.merge(institute);
+		tx.commit();
+		System.out.println("Nodal rejected the institute");
+	}
+	public void ministryApprovesAForm(long id){
+		ScholarshipForm form=findAScholarshipForm(id);
+		form.setMinistryVerificationStatus("Approved");
+		tx.begin();
+		em.merge(form);
+		tx.commit();
+		System.out.println("Ministry approved a form");
+	}
+	public void ministryRejectsAForm(long id){
+		ScholarshipForm form=findAScholarshipForm(id);
+		form.setMinistryVerificationStatus("Rejected");
+		tx.begin();
+		em.merge(form);
+		tx.commit();
+		System.out.println("Ministry rejected a form");
+	}
+	public void ministryApprovesAnInstitute(String code){
+		Institute institute=findAnInstituteByInstituteCode(code);
+		institute.setInstituteMinistryApproval("Approved");
+		tx.begin();
+		em.merge(institute);
+		tx.commit();
+		System.out.println("Ministry approved the institute");
+	}
+	public void ministryRejectsAnInstitute(String code){
+		Institute institute=findAnInstituteByInstituteCode(code);
+		institute.setInstituteMinistryApproval("Rejected");
+		tx.begin();
+		em.merge(institute);
+		tx.commit();
+		System.out.println("Ministry rejected the institute");
 	}
 
 }

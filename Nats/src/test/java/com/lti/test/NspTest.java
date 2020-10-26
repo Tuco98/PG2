@@ -93,8 +93,6 @@ public class NspTest {
 			System.out.println("Student registration failed");
 		}
 		
-		
-
 	}
 	
 	@Test
@@ -198,5 +196,38 @@ public class NspTest {
 			System.out.println("Login failed");
 		}
 	}
-	
+	@Test
+	public void studentLogin(){
+		boolean check=nspDao.studentLogin(123456123, "james123");
+		if(check==true){
+			System.out.println("Login successful");
+		}
+		else{
+			System.out.println("Login failed");
+		}
+	}
+	@Test
+	public void nodalApprovesAnInstitute(){
+		nspDao.nodalApprovesAnInstitute("100");
+	}
+	@Test
+	public void nodalRejectsAnInstitute(){
+		nspDao.nodalRejectsAnInstitute("100");
+	}
+	@Test
+	public void ministryApprovesAForm(){
+		nspDao.ministryApprovesAForm(1001);
+	}
+	@Test
+	public void ministryRejectsAForm(){
+		nspDao.ministryRejectsAForm(1001);
+	}
+	@Test
+	public void ministryApprovesAnInstitute(){
+		nspDao.ministryApprovesAnInstitute("100");
+	}
+	@Test
+	public void ministryRejectssAnInstitute(){
+		nspDao.ministryRejectsAnInstitute("100");
+	}
 }
