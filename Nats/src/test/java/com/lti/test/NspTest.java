@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.lti.dao.NspDao;
 import com.lti.model.Institute;
+import com.lti.model.Nodal;
 import com.lti.model.Scheme;
 import com.lti.model.ScholarshipForm;
 import com.lti.model.Student;
@@ -97,6 +98,19 @@ public class NspTest {
 	}
 	
 	@Test
+	public void addANodal() {
+		Nodal nodal = new Nodal();
+		nodal.setNodal_State("Maharashtra");
+		nodal.setNodal_Name("Nodal 1");
+		nodal.setNodal_Email("nodal@lti.com");
+		nodal.setNodal_Phone(326524);
+		nodal.setNodal_Status(true);
+		
+		nspDao.addANodal(nodal);
+	}
+	
+	
+	@Test
 	public void findAnInstituteByInstituteCode() {
 		Institute institute = nspDao.findAnInstituteByInstituteCode("100");
 		if(institute != null) {
@@ -115,9 +129,19 @@ public class NspTest {
 		form.setFatherName("Andrew");
 		form.setMotherName("Sarah");
 		form.setFamilyAnnualIncome(500000);
-		form.setStudent(nspDao.findAStudent(123456123));
-		form.setNodalVerificationStatus("Not Approved");
-		form.setMinistryVerificationStatus("Not Approved");
+		
+		Student stu = nspDao.findAStudent(123456123);
+		form.setStudent(stu);
+		
+		Nodal nodal = nspDao.findANodal(8);
+		
+		form.setNodal(nodal);
+		
+		Scheme scheme = nspDao.findAScheme(1002);
+		
+		form.setScheme(scheme);
+		//form.setNodalVerificationStatus("Not Approved");
+		//form.setMinistryVerificationStatus("Not Approved");
 		
 		nspDao.applyForAScheme(form);
 	}

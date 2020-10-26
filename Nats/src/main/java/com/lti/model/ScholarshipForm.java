@@ -15,7 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table( name = "tbl_scholarship_form")
+@Table( name = "form_demo") //@Table( name = "tbl_scholarship_form")
 public class ScholarshipForm {
 	
 	@Id
@@ -42,16 +42,34 @@ public class ScholarshipForm {
 	@Column(name = "family_annual_income")
 	double familyAnnualIncome;
 	
+	@Column(name = "inst_verification_status")
+	String instituteVerificationStatus; //Not Approved/Approved/Rejected
+	
 	@Column(name = "nodal_verification_status")
 	String nodalVerificationStatus; //Not Approved/Approved/Rejected
 	
 	@Column(name = "ministry_verification_status")
 	String ministryVerificationStatus;//Not Approved/Approved/Rejected
 	
+	@Column( name = "date_of_approval")
+	LocalDate dateOfApproval;
+	
+	@Column( name = "status")
+	String status;
+	
 	
 	@OneToOne
 	@JoinColumn( name = "student_aadhar_number")
 	Student student;
+	
+	@OneToOne
+	@JoinColumn( name = "nodal_uid")
+	Nodal nodal;
+	
+	@OneToOne
+	@JoinColumn( name = "scheme_uid")
+	Scheme scheme;
+	
 	/*
 	String instituteName;
 	String presentCourse;
@@ -162,6 +180,46 @@ public class ScholarshipForm {
 
 	public void setMinistryVerificationStatus(String ministryVerificationStatus) {
 		this.ministryVerificationStatus = ministryVerificationStatus;
+	}
+
+	public String getInstituteVerificationStatus() {
+		return instituteVerificationStatus;
+	}
+
+	public void setInstituteVerificationStatus(String instituteVerificationStatus) {
+		this.instituteVerificationStatus = instituteVerificationStatus;
+	}
+
+	public LocalDate getDateOfApproval() {
+		return dateOfApproval;
+	}
+
+	public void setDateOfApproval(LocalDate dateOfApproval) {
+		this.dateOfApproval = dateOfApproval;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Nodal getNodal() {
+		return nodal;
+	}
+
+	public void setNodal(Nodal nodal) {
+		this.nodal = nodal;
+	}
+
+	public Scheme getScheme() {
+		return scheme;
+	}
+
+	public void setScheme(Scheme scheme) {
+		this.scheme = scheme;
 	}
 	
 	

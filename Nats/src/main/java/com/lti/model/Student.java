@@ -38,9 +38,7 @@ public class Student {
 	String studentStateOfDomicile;
 	
 	@Column(name = "student_district")
-	String studentDistrict;
-	
-	//long instituteCode; this will be the foreign key 
+	String studentDistrict; 
 	
 	@Column(name = "student_bank_name")
 	String studentBankName;
@@ -175,6 +173,16 @@ public class Student {
 	public void setInstitute(Institute institute) {
 		this.institute = institute;
 	}
+
+	public ScholarshipForm getForm() {
+		return form;
+	}
+
+	public void setForm(ScholarshipForm form) {
+		this.form = form;
+	}
+	
+	
 	
 }
 

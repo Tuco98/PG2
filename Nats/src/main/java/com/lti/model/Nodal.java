@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,9 +19,6 @@ public class Nodal {
 	@Column(name="Nodal_State")
 	String Nodal_State;
 	
-	@Column(name="Nodal_SchemeID")
-	int Nodal_SchemeID;
-	
 	@Column(name="Nodal_Name")
 	String Nodal_Name;
 	
@@ -31,7 +29,10 @@ public class Nodal {
 	int Nodal_Phone;
 	
 	@Column(name="Nodal_Status")
-	Boolean Nodal_Status = true;
+	Boolean Nodal_Status;
+	
+	@OneToOne( mappedBy = "nodal")
+	ScholarshipForm form;
 
 	public int getNodal_UID() {
 		return Nodal_UID;
@@ -49,13 +50,6 @@ public class Nodal {
 		Nodal_State = nodal_State;
 	}
 
-	public int getNodal_SchemeID() {
-		return Nodal_SchemeID;
-	}
-
-	public void setNodal_SchemeID(int nodal_SchemeID) {
-		Nodal_SchemeID = nodal_SchemeID;
-	}
 
 	public String getNodal_Name() {
 		return Nodal_Name;

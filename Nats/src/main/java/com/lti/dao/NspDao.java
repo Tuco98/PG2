@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import com.lti.model.Institute;
+import com.lti.model.Nodal;
 import com.lti.model.Scheme;
 import com.lti.model.ScholarshipForm;
 import com.lti.model.Student;
@@ -52,6 +53,14 @@ public class NspDao {
 		tx.commit();
 		System.out.println("Student Added");
 	}
+	
+	public void addANodal(Nodal nodal) {
+
+		tx.begin();
+		em.merge(nodal);
+		tx.commit();
+		System.out.println("Nodal Added");
+	}
 
 	public Institute findAnInstitute(long instituteId) {
 		Institute institute = em.find(Institute.class, instituteId);
@@ -62,8 +71,24 @@ public class NspDao {
 		Student student = em.find(Student.class, studentId);
 		return student;
 	}
+	
+	public Nodal findANodal(int Nodal_UID) {
+		Nodal nodal = em.find(Nodal.class, Nodal_UID);
+		return nodal;
+	}
+	
+	public Scheme findAScheme(long schemeUID) {
+		Scheme scheme = em.find(Scheme.class, schemeUID);
+		return scheme;
+	}
 
 	public void applyForAScheme(ScholarshipForm form) {
+		
+		form.setInstituteVerificationStatus("Not Approved");
+		form.setNodalVerificationStatus("Not Approved");
+		form.setMinistryVerificationStatus("Not Approved");
+		form.setStatus("Not Approved");
+		
 		tx.begin();
 		em.merge(form);
 		tx.commit();
