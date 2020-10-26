@@ -170,5 +170,24 @@ public class NspDao {
 			System.out.println(stu.getStudentAadharNumber()+" "+stu.getStudentName()+" "+stu.getStudentStatus());
 		}		
 	}
+	
+	public void instituteRejectsAStudent(Student student){
+		student.setStudentStatus("Rejected");
+		tx.begin();
+		em.merge(student);
+		tx.commit();
+		System.out.println("Student Rejected");
+
+	}
+	public boolean instituteLogin(long userId, String password){
+		String jpql="select i from Institute i where i.instituteId=:id and i.institutePassword=:psw";
+		Query query=em.createQuery(jpql, Institute.class);
+		query.setParameter("id", userId);
+		query.setParameter("psw", password);
+		Institute ins=(Institute)query.getResultList().stream().findFirst().orElse(null);
+		if(ins!=null)
+			return true;
+		return false;
+	}
 
 }

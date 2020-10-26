@@ -182,4 +182,20 @@ public class NspTest {
 		nspDao.viewUnverifiedStudentsOfParticularInstitute(1021);
 	}
 	
+	@Test
+	public void instituteRejectsAStudent(){
+		Student student = nspDao.findAStudent(123456123);
+		nspDao.instituteRejectsAStudent(student);
+	}
+	
+	@Test
+	public void instituteLogin(){
+		boolean check=nspDao.instituteLogin(5002,"abc@123");
+		if(check==true){
+			System.out.println("Login Successful");
+		}
+		else{
+			System.out.println("Login failed");
+		}
+	}
 }
