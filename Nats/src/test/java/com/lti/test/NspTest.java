@@ -103,6 +103,7 @@ public class NspTest {
 		nodal.setNodalEmail("nodal@lti.com");
 		nodal.setNodalPhone(326524);
 		nodal.setNodalStatus(true);
+		nodal.setNodalPassword("nd@123");
 		
 		nspDao.addANodal(nodal);
 	}
@@ -158,7 +159,7 @@ public class NspTest {
 	@Test
 	public void viewAllStudents() {
 		List<Student> students = nspDao.viewAllStudents();
-		
+		System.out.println(students.size());
 		for(Student s: students) {
 			System.out.println(s.getStudentAadharNumber()+" "+s.getStudentName()+" "+s.getStudentStatus()+" "+s.getInstitute().getInstituteId());
 		}
@@ -229,5 +230,12 @@ public class NspTest {
 	@Test
 	public void ministryRejectssAnInstitute(){
 		nspDao.ministryRejectsAnInstitute("100");
+	}
+	@Test
+	public void nodalLogin(){
+		boolean check=nspDao.nodalLogin(12, "nd@123");
+		if(check==true)
+			System.out.println("Nodal login succcessful");
+		System.out.println("Nodal login failed");
 	}
 }

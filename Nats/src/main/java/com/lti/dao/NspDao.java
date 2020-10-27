@@ -128,7 +128,7 @@ public class NspDao {
 		Query query = em.createQuery(jpql, Student.class);
 
 		List<Student> students = query.getResultList();
-
+		System.out.println(students.size());
 		return students;
 	}
 
@@ -329,6 +329,16 @@ public class NspDao {
 		em.merge(institute);
 		tx.commit();
 		System.out.println("Ministry rejected the institute");
+	}
+	public boolean nodalLogin(int userId,String password){
+		String jpql="select n from Nodal n where n.nodalUid=:id and n.nodalPassword=:psw";
+		Query query=em.createNamedQuery(jpql, Nodal.class);
+		query.setParameter("id", userId);
+		query.setParameter("psw", password);
+		Nodal nodal=(Nodal)query.getSingleResult();
+		if(nodal!=null)
+			return true;
+		return false;
 	}
 
 }
