@@ -233,9 +233,10 @@ public class NspTest {
 	}
 	@Test
 	public void nodalLogin(){
-		boolean check=nspDao.nodalLogin(12, "nd@123");
+		boolean check=nspDao.nodalLogin(33, "nd@123");
 		if(check==true)
 			System.out.println("Nodal login succcessful");
-		System.out.println("Nodal login failed");
+		else
+			System.out.println("Nodal login failed");
 	}
 }
