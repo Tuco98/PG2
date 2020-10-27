@@ -13,9 +13,9 @@ import com.lti.model.Nodal;
 import com.lti.model.Scheme;
 import com.lti.model.ScholarshipForm;
 import com.lti.model.Student;
-import com.lti.dao.NspInterfaces;
+import com.lti.dao.NspInterface;
 
-public class NspDao implements NspInterfaces {
+public class NspDao implements NspInterface {
 	EntityManagerFactory emf;
 	EntityManager em;
 	EntityTransaction tx;
