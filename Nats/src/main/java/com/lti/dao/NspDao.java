@@ -332,7 +332,7 @@ public class NspDao {
 	}
 	public boolean nodalLogin(int userId,String password){
 		String jpql="select n from Nodal n where n.nodalUid=:id and n.nodalPassword=:psw";
-		Query query=em.createNamedQuery(jpql, Nodal.class);
+		Query query=em.createQuery(jpql, Nodal.class);
 		query.setParameter("id", userId);
 		query.setParameter("psw", password);
 		Nodal nodal=(Nodal)query.getSingleResult();
