@@ -13,8 +13,9 @@ import com.lti.model.Nodal;
 import com.lti.model.Scheme;
 import com.lti.model.ScholarshipForm;
 import com.lti.model.Student;
+import com.lti.dao.NspInterfaces;
 
-public class NspDao {
+public class NspDao implements NspInterfaces {
 	EntityManagerFactory emf;
 	EntityManager em;
 	EntityTransaction tx;
@@ -24,7 +25,7 @@ public class NspDao {
 		em = emf.createEntityManager();
 		tx = em.getTransaction();
 	}
-
+	
 	public void registerAnInstitute(Institute institute) {
 
 		institute.setInstituteStatus(false);
@@ -36,14 +37,12 @@ public class NspDao {
 		tx.commit();
 		System.out.println("Institute added");
 	}
-
 	public void addAScheme(Scheme scheme) {
 		tx.begin();
 		em.merge(scheme);
 		tx.commit();
 		System.out.println("Scheme Added");
 	}
-
 	public void registerAStudent(Student student) {
 
 		student.setStudentStatus("Not Approved");
@@ -340,5 +339,6 @@ public class NspDao {
 			return true;
 		return false;
 	}
-
+	
+	
 }
